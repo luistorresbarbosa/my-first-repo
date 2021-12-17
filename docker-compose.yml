@@ -26,7 +26,6 @@ services:
       - "9092:9092"
     networks:
       - jenkins
-    entrypoint: sysctl -w vm.max_map_count=262144
     environment:
       SONARQUBE_JDBC_USERNAME: sonar
       SONARQUBE_JDBC_PASSWORD: sonarpasswd
