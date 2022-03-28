@@ -1,3 +1,4 @@
+# PRE-REQUIREMENTS >> sudo yum install WGET
 # INSTALL DOCKER
 sudo yum check-update
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
