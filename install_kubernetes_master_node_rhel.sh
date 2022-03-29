@@ -6,8 +6,8 @@ sudo firewall-cmd --add-port=6443/tcp
 sudo firewall-cmd --add-port=10250/tcp
 
 # Disable Swap
-sudo swapoff -a
-sudo sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+swapoff -a
+sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
 
 # Disable SELinux
 sudo setenforce 0
