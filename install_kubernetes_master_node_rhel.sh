@@ -19,8 +19,9 @@ sudo firewall-cmd --add-port=10250/tcp
 # sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
 
 # Disable SELinux
-sudo setenforce 0
-sudo sed -i 's/enforcing/disabled/g' /etc/selinux/config
+sudo setenforce 
+#uncomment line below if not a LXC container
+#sudo sed -i 's/enforcing/disabled/g' /etc/selinux/config
 
 # Download & Install - Docker
 sudo yum check-update
