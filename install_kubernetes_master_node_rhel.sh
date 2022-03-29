@@ -1,3 +1,11 @@
+# Prepare blank LXC container for Kubernetes
+sudo cat <<EOF > /etc/rc.local
+if [ ! -e /dev/kmsg ]; then
+ln -s /dev/console /dev/kmsg
+fi
+EOF
+chmod +x /etc/rc.local
+
 # Note: Execute on all nodes (master & worker)
 # ensure ports [6443 10250] are open (using root)
 sudo yum install -y firewall-cmd
@@ -5,9 +13,9 @@ sudo systemctl enable firewalld
 sudo firewall-cmd --add-port=6443/tcp
 sudo firewall-cmd --add-port=10250/tcp
 
-# Disable Swap
-swapoff -a
-sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+# Disable Swap - uncomment if not a LXC container
+# swapoff -a
+# sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
 
 # Disable SELinux
 sudo setenforce 0
