@@ -1,5 +1,7 @@
 # Note: Execute on all nodes (master & worker)
 # ensure ports [6443 10250] are open (using root)
+sudo yum install -y firewall-cmd
+sudo systemctl enable firewalld 
 sudo firewall-cmd --add-port=6443/tcp
 sudo firewall-cmd --add-port=10250/tcp
 
@@ -10,6 +12,22 @@ sudo sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
 # Disable SELinux
 sudo setenforce 0
 sudo sed -i 's/enforcing/disabled/g' /etc/selinux/config
+
+# Download & Install - Docker
+sudo yum check-update
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install -y docker-ce docker-ce-cli containerd.io
 
 # Download & Install - Docker | Kubelet | Kubeadm | Kubectl
 # Note: Execute on all nodes (master & worker)
@@ -26,9 +44,9 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 exclude=kube*
 EOF
 
-# Installing Docker | Kubelet | Kubeadm | Kubectl
+# Installing Kubelet | Kubeadm | Kubectl
 sudo yum update -y
-sudo yum install -y docker kubeadm kubelet kubectl --disableexcludes=kubernetes
+sudo yum install -y kubeadm kubelet kubectl --disableexcludes=kubernetes
 
 # Start and enable docker and kubectl
 sudo systemctl enable docker && systemctl start docker
