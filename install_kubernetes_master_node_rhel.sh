@@ -39,20 +39,21 @@ sudo yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum install -y docker-ce docker-ce-cli containerd.io
 
-sudo mkdir /etc/docker
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-sudo systemctl enable docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+# In order to address the error (dial tcp 127.0.0.1:10248: connect: connection refused.), run the following:
+# sudo mkdir /etc/docker
+# cat <<EOF | sudo tee /etc/docker/daemon.json
+# {
+#   "exec-opts": ["native.cgroupdriver=systemd"],
+#   "log-driver": "json-file",
+#   "log-opts": {
+#     "max-size": "100m"
+#   },
+#   "storage-driver": "overlay2"
+# }
+# EOF
+# sudo systemctl enable docker
+# sudo systemctl daemon-reload
+# sudo systemctl restart docker
 
 # Download & Install - Docker | Kubelet | Kubeadm | Kubectl
 # Note: Execute on all nodes (master & worker)
