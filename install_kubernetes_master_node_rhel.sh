@@ -1,21 +1,21 @@
 # Note: Execute on all nodes (master & worker)
 # ensure ports [6443 10250] are open (using root)
-firewall-cmd --add-port=6443/tcp
-firewall-cmd --add-port=10250/tcp
+sudo firewall-cmd --add-port=6443/tcp
+sudo firewall-cmd --add-port=10250/tcp
 
 # Disable Swap
-swapoff -a
-sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+sudo swapoff -a
+sudo sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
 
 # Disable SELinux
-setenforce 0
-sed -i 's/enforcing/disabled/g' /etc/selinux/config
+sudo setenforce 0
+sudo sed -i 's/enforcing/disabled/g' /etc/selinux/config
 
 # Download & Install - Docker | Kubelet | Kubeadm | Kubectl
 # Note: Execute on all nodes (master & worker)
 
 # Kubernetes Repository
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -27,26 +27,26 @@ exclude=kube*
 EOF
 
 # Installing Docker | Kubelet | Kubeadm | Kubectl
-yum update -y
-yum install -y docker kubeadm kubelet kubectl --disableexcludes=kubernetes
+sudo yum update -y
+sudo yum install -y docker kubeadm kubelet kubectl --disableexcludes=kubernetes
 
 # Start and enable docker and kubectl
-systemctl enable docker && systemctl start docker
-systemctl enable kubelet && systemctl start kubelet
+sudo systemctl enable docker && systemctl start docker
+sudo systemctl enable kubelet && systemctl start kubelet
 
 # For CentOS and RHEL
-cat <<EOF >  /etc/sysctl.d/k8s.conf
+sudo cat <<EOF >  /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
-sysctl net.bridge.bridge-nf-call-iptables=1
-sysctl net.ipv4.ip_forward=1
-sysctl --system
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
+sudo sysctl net.ipv4.ip_forward=1
+sudo sysctl --system
 echo "1" > /proc/sys/net/ipv4/ip_forward
 
 # Restart the systemd daemon and the kubelet service with the commands:
-systemctl daemon-reload
-systemctl restart kubelet
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
 
 # Initializing master node
 kubeadm init --pod-network-cidr=10.240.0.0/16 > WorkerNodeJoinCommand.txt 
