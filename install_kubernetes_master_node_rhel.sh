@@ -8,7 +8,7 @@ chmod +x /etc/rc.local
 
 # Note: Execute on all nodes (master & worker)
 # ensure ports [6443 10250] are open (using root)
-sudo yum install -y firewall-cmd
+sudo yum install -y firewalld
 sudo systemctl enable firewalld 
 sudo firewall-cmd --add-port=6443/tcp
 sudo firewall-cmd --add-port=10250/tcp
