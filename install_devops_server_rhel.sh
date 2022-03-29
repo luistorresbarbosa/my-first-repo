@@ -25,4 +25,5 @@ sudo docker-compose --version
 
 # RUN DOCKER-COMPOSE UP
 wget https://raw.githubusercontent.com/luistorresbarbosa/my-first-repo/master/docker-compose.yml
+sleep 3
 sudo docker-compose up
