@@ -1,5 +1,5 @@
 sudo apt-get update -y
-sudo apt-get install -y yum-utils device-mapper-persistent-data lvm2
-sudo apt-get remove docker docker-engine docker.io containerd.io
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install -y device-mapper-persistent-data lvm2
+sudo apt-get remove docker docker-engine docker.io
+sudo apt-get install docker.io
 sudo systemctl start docker
