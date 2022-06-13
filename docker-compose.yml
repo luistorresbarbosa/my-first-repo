@@ -20,7 +20,7 @@ services:
     volumes:
       - /var/postgres-data:/var/lib/postgresql/data
   sonarqube:
-    image: sonarqube:9.3-community
+    image: sonarqube:9.2.4-community
     ports:
       - "9000:9000"
       - "9092:9092"
