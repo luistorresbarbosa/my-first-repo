@@ -92,6 +92,10 @@ echo "1" > /proc/sys/net/ipv4/ip_forward
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 
+# Solve containerd conflicts
+rm /etc/containerd/config.toml
+systemctl restart containerd
+
 # Initializing master node
 kubeadm init --pod-network-cidr=10.240.0.0/16 > WorkerNodeJoinCommand.txt 
 
