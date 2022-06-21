@@ -1,4 +1,5 @@
-# Pre-install wget before running this script > yum install wget -y && yum install net-tools -y && dhclient -v
+# Pre-install wget before running this script > yum install wget -y && yum install net-tools -y
+# Change the hostname
 # yum update to update the latest packages
 yum update -y
 
@@ -75,9 +76,13 @@ sudo systemctl enable --now kubelet
 yes | rm /etc/containerd/config.toml
 systemctl restart containerd
 
-# Install Weave net add-on
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-
 # Open worker required ports
 firewall-cmd --add-port=10250/tcp --permanent
 firewall-cmd --add-port=30000-32767/tcp --permanent
+
+## Post install scripts
+
+## Run Kubernetes join cmd
+
+## Install Weave net add-on
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
