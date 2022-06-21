@@ -1,4 +1,5 @@
-# Pre-install wget before running this script > yum install wget -y && yum install net-tools -y && dhclient -v
+# Pre-install wget before running this script > yum install wget -y && yum install net-tools -y
+# Change the hostname
 # yum update to update the latest packages
 yum update -y
 
