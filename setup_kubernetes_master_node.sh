@@ -95,3 +95,5 @@ firewall-cmd --add-port=2378/tcp --permanent
 firewall-cmd --add-port=10250/tcp --permanent
 firewall-cmd --add-port=10259/tcp --permanent
 firewall-cmd --add-port=10257/tcp --permanent
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
