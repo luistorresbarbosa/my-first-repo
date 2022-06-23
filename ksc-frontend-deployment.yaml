@@ -1,21 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ksc-frontend-deployment
+    name: ksc-frontend-deployment
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: ksc-frontend
-      tier: frontend
-  template:
-    metadata: 
-      labels:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: ksc-frontend
+            tier: frontend
+    template:
+        metadata:
+            labels:
+                app: ksc-frontend
+                tier: frontend
+        spec:
+            containers:
+                - name: ksc-frontend
+                  image: kwalit/ksc-frontend:latest
+            imagePullSecrets:
+                - name: my-registry-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: frontend
+spec:
+    selector:
         app: ksc-frontend
-        tier: frontend
-    spec: 
-      containers:
-        - name: ksc-frontend
-          image: kwalit/ksc-frontend:latest
-      imagePullSecrets:
-        - name: my-registry-key
+    ports:
+        - protocol: "TCP"
+          port: 4200
+          targetPort: 4200
+    type: LoadBalancer
