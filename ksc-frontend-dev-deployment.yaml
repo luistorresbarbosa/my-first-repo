@@ -21,7 +21,7 @@ spec:
           - name: API_HOST
             value: "http://172.20.66.100"
           - name: API_PORT
-            value: "3000"
+            value: "3001"
           - name: API_VERSION
             value: "v1"
           - name: TENANT_HOST
