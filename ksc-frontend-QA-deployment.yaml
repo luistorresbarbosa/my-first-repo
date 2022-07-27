@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksc-frontend-QA
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ksc-frontend-QA
+      tier: ksc-frontend-QA
+  template:
+    metadata: 
+      labels:
+        app: ksc-frontend-QA
+        tier: ksc-frontend-QA
+    spec: 
+      containers:
+        - name: ksc-frontend-QA
+          image: kwalit/ksc-frontend:v1.0.5-QA
+          env:
+          - name: API_HOST
+            value: "http://172.20.66.100"
+          - name: API_PORT
+            value: "3002"
+          - name: API_VERSION
+            value: "v1"
+          - name: TENANT_HOST
+            value: "172.20.66.100" 
+      imagePullSecrets:
+        - name: my-registry-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: ksc-frontend-QA
+spec:
+    selector:
+        app: ksc-frontend-QA
+    ports:
+        - protocol: "TCP"
+          port: 80
+          targetPort: 80
+    type: LoadBalancer
