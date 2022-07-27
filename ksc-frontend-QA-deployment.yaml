@@ -15,7 +15,7 @@ spec:
         tier: ksc-frontend-QA
     spec: 
       containers:
-        - name: ksc-frontend-QA
+        - name: ksc-frontend
           image: kwalit/ksc-frontend:v1.0.5-QA
           env:
           - name: API_HOST
