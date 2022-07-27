@@ -16,7 +16,7 @@ spec:
     spec: 
       containers:
         - name: ksc-frontend
-          image: kwalit/ksc-frontend:v1.0.5-release
+          image: kwalit/ksc-frontend:v1.0.1-release
           env:
           - name: API_HOST
             value: "http://172.20.66.100"
