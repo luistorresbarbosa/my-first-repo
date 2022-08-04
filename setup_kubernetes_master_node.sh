@@ -87,7 +87,7 @@ kubeadm init --config kubeadm-config.yaml --ignore-preflight-errors=all > kubead
 
 # To start using your cluster, you need to run the following as a regular user:
 mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && y
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # Install Weave net add-on
