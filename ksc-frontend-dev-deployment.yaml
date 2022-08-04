@@ -19,13 +19,13 @@ spec:
           image: kwalit/ksc-frontend:v1.0.3-release
           env:
           - name: API_HOST
-            value: "http://172.20.66.100"
+            value: "http://172.31.66.100"
           - name: API_PORT
             value: "3001"
           - name: API_VERSION
             value: "v1"
           - name: TENANT_HOST
-            value: "172.20.66.100" 
+            value: "172.31.66.100" 
       imagePullSecrets:
         - name: my-registry-key
 ---
