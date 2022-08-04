@@ -77,7 +77,7 @@ sudo systemctl enable --now kubelet
 yes | rm /etc/containerd/config.toml
 systemctl restart containerd
 
-# Solve containerd conflicts
+# Disable firewall
 systemctl stop firewalld
 systemctl disable firewalld
 
