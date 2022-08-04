@@ -19,7 +19,7 @@ spec:
           image: kwalit/ksc-frontend:v1.0.3-release
           env:
           - name: API_HOST
-            value: "http://172.20.66.100"
+            value: "http://172.31.66.100"
           - name: API_PORT
             value: "3002"
           - name: API_VERSION
