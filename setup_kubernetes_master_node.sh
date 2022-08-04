@@ -103,6 +103,7 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 #firewall-cmd --add-port=10257/tcp --permanent
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+
 # Install metalb load balancer
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.4/config/manifests/metallb-native.yaml
-
+kubectl apply -f https://raw.githubusercontent.com/luistorresbarbosa/my-first-repo/master/metalbconfig.yaml
