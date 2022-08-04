@@ -1,5 +1,6 @@
 # Pre-install wget before running this script > yum install wget -y && yum install net-tools -y
-# Change the hostname
+# Change the hostname by following this tutorial
+# https://www.cyberciti.biz/faq/ubuntu-change-hostname-command/
 # yum update to update the latest packages
 yum update -y
 
@@ -76,6 +77,10 @@ sudo systemctl enable --now kubelet
 yes | rm /etc/containerd/config.toml
 systemctl restart containerd
 
+# Solve containerd conflicts
+systemctl stop firewalld
+systemctl disable firewalld
+
 # Initialize the cluster
 wget https://raw.githubusercontent.com/luistorresbarbosa/my-first-repo/master/kubeadm-config.yaml
 kubeadm init --config kubeadm-config.yaml --ignore-preflight-errors=all > kubeadm-init-output.txt
@@ -88,12 +93,12 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # Install Weave net add-on
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
-# Open master required ports
-firewall-cmd --add-port=6443/tcp --permanent
-firewall-cmd --add-port=2379/tcp --permanent
-firewall-cmd --add-port=2378/tcp --permanent
-firewall-cmd --add-port=10250/tcp --permanent
-firewall-cmd --add-port=10259/tcp --permanent
-firewall-cmd --add-port=10257/tcp --permanent
+# Open master required ports (Uncomment in case of firewalld needs to be active)
+#firewall-cmd --add-port=6443/tcp --permanent
+#firewall-cmd --add-port=2379/tcp --permanent
+#firewall-cmd --add-port=2378/tcp --permanent
+#firewall-cmd --add-port=10250/tcp --permanent
+#firewall-cmd --add-port=10259/tcp --permanent
+#firewall-cmd --add-port=10257/tcp --permanent
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
