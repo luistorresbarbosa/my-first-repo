@@ -76,13 +76,17 @@ sudo systemctl enable --now kubelet
 yes | rm /etc/containerd/config.toml
 systemctl restart containerd
 
+# Disable firewall
+systemctl stop firewalld
+systemctl disable firewalld
+
 # Open worker required ports
-firewall-cmd --add-port=10250/tcp --permanent
-firewall-cmd --add-port=30000-32767/tcp --permanent
+#firewall-cmd --add-port=10250/tcp --permanent
+#firewall-cmd --add-port=30000-32767/tcp --permanent
 
 ## Post install scripts
 
 ## Run Kubernetes join cmd
 
 ## Install Weave net add-on
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+#kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
