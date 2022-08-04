@@ -1,6 +1,6 @@
 # Pre-install wget before running this script > yum install wget -y && yum install net-tools -y
-# Change the hostname by following this tutorial
-# https://www.cyberciti.biz/faq/ubuntu-change-hostname-command/
+# Change the hostname by:
+# sudo vi /etc/hostname
 # yum update to update the latest packages
 yum update -y
 
