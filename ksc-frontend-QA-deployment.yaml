@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ksc-frontend-QA
+  name: ksc-frontend-qa
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: ksc-frontend-QA
-      tier: ksc-frontend-QA
+      app: ksc-frontend-qa
+      tier: ksc-frontend-qa
   template:
     metadata: 
       labels:
-        app: ksc-frontend-QA
-        tier: ksc-frontend-QA
+        app: ksc-frontend-qa
+        tier: ksc-frontend-qa
     spec: 
       containers:
         - name: ksc-frontend
@@ -32,10 +32,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: ksc-frontend-QA
+    name: ksc-frontend-qa
 spec:
     selector:
-        app: ksc-frontend-QA
+        app: ksc-frontend-qa
     ports:
         - protocol: "TCP"
           port: 80
