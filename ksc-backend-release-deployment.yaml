@@ -17,7 +17,7 @@ spec:
       containers:
         - name: ksc-backend
           image: kwalit/ksc-backend:v22.8.2-release
-          command: ["npx prisma migrate deploy"]
+          command: ["printenv"]
           env:
           - name: POSTGRES_USER
             value: "postgres"
