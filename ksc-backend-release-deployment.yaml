@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksc-backend-release
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ksc-backend-release
+      tier: ksc-backend-release
+  template:
+    metadata: 
+      labels:
+        app: ksc-backend-release
+        tier: ksc-backend-release
+    spec: 
+      containers:
+        - name: ksc-backend
+          image: kwalit/ksc-backend:v22.8.2-release
+          command: ["npx prisma migrate deploy"]
+          env:
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_PASSWORD
+            value: "tQhk83Zg8CMQ3Mvb"
+          - name: POSTGRES_HOST
+            value: "172.31.66.100"
+          - name: POSTGRES_DB
+            value: "ksc-kubernetes-test"
+          - name: POSTGRES_SCHEMA
+            value: "ksc-kubernetes-test"
+          - name: POSTGRES_PORT
+            value: "5432"  
+      imagePullSecrets:
+        - name: my-registry-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: ksc-backend-release
+spec:
+    selector:
+        app: ksc-backend-release
+    ports:
+        - protocol: "TCP"
+          port: 3000
+          targetPort: 3000
+    type: LoadBalancer
