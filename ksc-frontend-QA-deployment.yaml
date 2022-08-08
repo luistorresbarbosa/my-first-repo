@@ -16,16 +16,16 @@ spec:
     spec: 
       containers:
         - name: ksc-frontend
-          image: kwalit/ksc-frontend:v1.0.4-release
+          image: kwalit/ksc-frontend:v22.8.3-QA
           env:
           - name: API_HOST
-            value: "http://172.31.66.100"
+            value: "http://172.31.65.106"
           - name: API_PORT
-            value: "3002"
+            value: "30168"
           - name: API_VERSION
             value: "v1"
           - name: TENANT_HOST
-            value: "172.31.66.100" 
+            value: "172.31.65.106" 
       imagePullSecrets:
         - name: my-registry-key
 ---
