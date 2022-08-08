@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ksc-backend-release
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: ksc-backend-release
