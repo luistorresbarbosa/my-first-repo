@@ -36,7 +36,7 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 2
             timeoutSeconds: 1
-            successThreshold: 3
+            successThreshold: 1
             failureThreshold: 10    
       imagePullSecrets:
         - name: my-registry-key
