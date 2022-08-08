@@ -33,7 +33,7 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["printenv"]      
+                command: ["npx prisma migrate status"]      
       imagePullSecrets:
         - name: my-registry-key
 ---
