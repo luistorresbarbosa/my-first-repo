@@ -29,15 +29,7 @@ spec:
           - name: POSTGRES_SCHEMA
             value: "ksc-kubernetes-test"
           - name: POSTGRES_PORT
-            value: "5432"
-          livenessProbe:
-            exec:
-              command: [npx prisma migrate status]
-            initialDelaySeconds: 30
-            periodSeconds: 2
-            timeoutSeconds: 1
-            successThreshold: 1
-            failureThreshold: 10    
+            value: "5432"   
       imagePullSecrets:
         - name: my-registry-key
 ---
