@@ -25,9 +25,9 @@ spec:
           - name: POSTGRES_HOST
             value: "172.31.66.100"
           - name: POSTGRES_DB
-            value: "ksc-kubernetes-test"
+            value: "ksc-backend-release-admin"
           - name: POSTGRES_SCHEMA
-            value: "ksc-kubernetes-test"
+            value: "ksc-backend-release-admin"
           - name: POSTGRES_PORT
             value: "5432"   
       imagePullSecrets:
