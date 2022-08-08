@@ -17,7 +17,6 @@ spec:
       containers:
         - name: ksc-backend
           image: kwalit/ksc-backend:v22.8.2-release
-          command: ["printenv"]
           env:
           - name: POSTGRES_USER
             value: "postgres"
@@ -30,7 +29,11 @@ spec:
           - name: POSTGRES_SCHEMA
             value: "ksc-kubernetes-test"
           - name: POSTGRES_PORT
-            value: "5432"  
+            value: "5432"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["printenv"]      
       imagePullSecrets:
         - name: my-registry-key
 ---
