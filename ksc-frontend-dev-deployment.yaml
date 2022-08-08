@@ -25,7 +25,7 @@ spec:
           - name: API_VERSION
             value: "v1"
           - name: TENANT_HOST
-            value: "172.31.65.106" 
+            value: "172.31.66.100" 
       imagePullSecrets:
         - name: my-registry-key
 ---
