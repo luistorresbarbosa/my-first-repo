@@ -30,7 +30,7 @@ spec:
             value: "ksc-kubernetes-test"
           - name: POSTGRES_PORT
             value: "5432"
-          readinessProbe:
+          livenessProbe:
             exec:
               command: [npx prisma migrate status]
             initialDelaySeconds: 30
