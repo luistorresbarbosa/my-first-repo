@@ -1,1 +1,47 @@
-ksc-backend-dev-deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ksc-backend-qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ksc-backend-qa
+      tier: ksc-backend-qa
+  template:
+    metadata: 
+      labels:
+        app: ksc-backend-qa
+        tier: ksc-backend-qa
+    spec: 
+      containers:
+        - name: ksc-backend
+          image: kwalit/ksc-backend:v22.8.3-QA
+          env:
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_PASSWORD
+            value: "tQhk83Zg8CMQ3Mvb"
+          - name: POSTGRES_HOST
+            value: "172.31.66.100"
+          - name: POSTGRES_DB
+            value: "ksc-backend-qa-admin"
+          - name: POSTGRES_SCHEMA
+            value: "ksc-backend-qa-admin"
+          - name: POSTGRES_PORT
+            value: "5432"   
+      imagePullSecrets:
+        - name: my-registry-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: ksc-backend-qa
+spec:
+    selector:
+        app: ksc-backend-qa
+    ports:
+        - protocol: "TCP"
+          port: 3000
+          targetPort: 3000
+    type: LoadBalancer
