@@ -16,7 +16,7 @@ spec:
     spec: 
       containers:
         - name: ksc-backend
-          image: kwalit/ksc-backend:v22.8.3-release
+          image: kwalit/ksc-backend:v22.8.2-release
           env:
           - name: POSTGRES_USER
             value: "postgres"
@@ -29,7 +29,15 @@ spec:
           - name: POSTGRES_SCHEMA
             value: "ksc-kubernetes-test"
           - name: POSTGRES_PORT
-            value: "5432"  
+            value: "5432"
+          readinessProbe:
+            exec:
+              command: [npx prisma migrate status]
+            initialDelaySeconds: 30
+            periodSeconds: 2
+            timeoutSeconds: 1
+            successThreshold: 3
+            failureThreshold: 10    
       imagePullSecrets:
         - name: my-registry-key
 ---
