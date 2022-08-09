@@ -16,7 +16,8 @@ spec:
     spec: 
       containers:
         - name: ksc-backend
-          image: kwalit/ksc-backend:v22.8.3-release
+          image: kwalit/ksc-backend:v22.8.4-release
+          imagePullPolicy: Always
           env:
           - name: POSTGRES_USER
             value: "postgres"
