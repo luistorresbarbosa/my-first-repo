@@ -17,6 +17,7 @@ spec:
       containers:
         - name: ksc-frontend
           image: kwalit/ksc-frontend:v22.8.3-release
+          imagePullPolicy: Always
           env:
           - name: API_HOST
             value: "http://172.31.65.106"
