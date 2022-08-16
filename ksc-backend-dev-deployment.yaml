@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ksc-backend-dev
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: ksc-backend-dev
@@ -16,7 +16,7 @@ spec:
     spec: 
       containers:
         - name: ksc-backend
-          image: kwalit/ksc-backend:v22.8.24-dev
+          image: kwalit/ksc-backend:v22.8.25-dev
           imagePullPolicy: Always
           env:
           - name: POSTGRES_USER
