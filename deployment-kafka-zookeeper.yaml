@@ -4,7 +4,6 @@ metadata:
   labels:
     app: zookeeper-service
   name: zookeeper-service
-  namespace: kafka
 spec:
   type: NodePort
   ports:
@@ -21,7 +20,6 @@ metadata:
   labels:
     app: zookeeper
   name: zookeeper
-  namespace: kafka
 spec:
   replicas: 1
   selector:
@@ -33,8 +31,11 @@ spec:
         app: zookeeper
     spec:
       containers:
-        - image: wurstmeister/zookeeper
+        - image: bitnami/zookeeper:latest
           imagePullPolicy: IfNotPresent
           name: zookeeper
           ports:
             - containerPort: 2181
+          env:
+            - name: ALLOW_ANONYMOUS_LOGIN
+              value: "yes"
