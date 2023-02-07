@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-dev
+  name: kafka-$ENVIRONMENT
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka-dev
+      app: kafka-$ENVIRONMENT
   template:
     metadata:
       labels:
-        app: kafka-dev
+        app: kafka-$ENVIRONMENT
     spec:
       containers:
         - name: zookeeper
@@ -44,10 +44,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafka-dev
+  name: kafka-$ENVIRONMENT
 spec:
     selector:
-        app: kafka-dev
+        app: kafka-$ENVIRONMENT
     ports:
         - protocol: "TCP"
           port: 9092
