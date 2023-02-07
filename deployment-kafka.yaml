@@ -30,7 +30,7 @@ spec:
             - name: KAFKA_CFG_LISTENERS
               value: "PLAINTEXT://:9092"
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
-              value: "PLAINTEXT://kafka:9092"
+              value: "kafka:9092"
             - name: KAFKA_CFG_ZOOKEEPER_CONNECT
               value: "zookeeper:2181"
             - name: ALLOW_PLAINTEXT_LISTENER
