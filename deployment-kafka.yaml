@@ -32,7 +32,7 @@ spec:
             - name: KAFKA_CFG_LISTENERS
               value: "PLAINTEXT://:9092"
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
-              value: "PLAINTEXT://127.0.0.1:9092""
+              value: "PLAINTEXT://127.0.0.1:9092"
             - name: KAFKA_CFG_ZOOKEEPER_CONNECT
               value: "zookeeper:2181"
             - name: ALLOW_PLAINTEXT_LISTENER
@@ -67,4 +67,4 @@ spec:
         - protocol: "TCP"
           port: 2181
           targetPort: zookeeper
-    type: NodePort    
+    type: NodePort
