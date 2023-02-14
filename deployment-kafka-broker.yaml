@@ -2,32 +2,32 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: kafka-broker
-  name: kafka-service
+    app: kafka-broker-dev
+  name: kafka-service-dev
 spec:
   ports:
   - port: 9092
   selector:
-    app: kafka-broker
+    app: kafka-broker-dev
   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: kafka-broker
-  name: kafka-broker
+    app: kafka-broker-dev
+  name: kafka-broker-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka-broker
+      app: kafka-broker-dev
   template:
     metadata:
       labels:
-        app: kafka-broker
+        app: kafka-broker-dev
     spec:
-      hostname: kafka-broker
+      hostname: kafka-broker-dev
       containers:
       - env:
         - name: KAFKA_BROKER_ID
@@ -35,9 +35,11 @@ spec:
         - name: KAFKA_ZOOKEEPER_CONNECT
           value: 10.100.62.101:2181
         - name: KAFKA_LISTENERS
-          value: PLAINTEXT://:9092
+          value: INSIDE://:9092,OUTSIDE://:80
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://queue.redivu.com,PLAINTEXT://172.31.65.106:31632
+          value: INSIDE://172.31.65.106:31632,OUTSIDE://queue-dev.redivu.com:80
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
         image: wurstmeister/kafka
         imagePullPolicy: IfNotPresent
         name: kafka-broker
