@@ -37,7 +37,7 @@ spec:
         - name: KAFKA_LISTENERS
           value: PLAINTEXT://:9092
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://queue-dev.redivu.com
+          value: PLAINTEXT://queue.redivu.com,PLAINTEXT://172.31.65.106:31632
         image: wurstmeister/kafka
         imagePullPolicy: IfNotPresent
         name: kafka-broker
