@@ -11,6 +11,6 @@ docker exec -it -u root installation_scripts_jenkins_1 /bin/bash
 apt-get update
 apt-get install gettext-base
 ## On the jenkins container install kubectl:
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
-chmod +x ./kind
-mv ./kind /usr/local/bin/kind
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
