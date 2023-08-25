@@ -81,6 +81,7 @@ metadata:
 spec:
   selector:
     app: kafka
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 9092
