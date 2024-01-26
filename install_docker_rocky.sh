@@ -1,3 +1,9 @@
+# Pre-install wget before running this script > yum install wget -y && yum install net-tools -y
+# yum update to update the latest packages
+yum update -y
+
+# Install yum-utils
+yum install -y yum-utils
 # Download & Install - Docker & Compose
 sudo yum check-update
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
