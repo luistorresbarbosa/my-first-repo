@@ -50,10 +50,18 @@ sudo swapoff -a
 rm /etc/containerd/config.toml
 systemctl restart containerd
 
+# Kubernetes Repository
+sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
+EOF
+
 # Install Kubernetes
 sudo dnf install -y yum-utils
-sudo mv /etc/yum.repos.d/kubernetes.repo /etc/yum.repos.d/kubernetes.repo.backup
-sudo cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo [kubernetes] name=Kubernetes baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/ enabled=1 gpgcheck=1 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key EOF [kubernetes] name=Kubernetes baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/ enabled=1 gpgcheck=1 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
 sudo dnf update kubectl
 sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
