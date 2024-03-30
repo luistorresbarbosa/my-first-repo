@@ -1,3 +1,8 @@
+#!/bin/bash
+# IMPORTANT: Before runing this script please 
+# Edit the hostname: vi /etc/hostname
+# install wget: yum install wget -y && yum install net-tools -y 
+
 # Prepare blank LXC container for Kubernetes
 sudo cat <<EOF > /etc/rc.local
 if [ ! -e /dev/kmsg ]; then
@@ -51,9 +56,6 @@ sudo yum install -y docker-ce docker-ce-cli containerd.io
 #   "storage-driver": "overlay2"
 # }
 # EOF
-# sudo systemctl enable docker
-# sudo systemctl daemon-reload
-# sudo systemctl restart docker
 
 # Download & Install - Docker | Kubelet | Kubeadm | Kubectl
 # Note: Execute on all nodes (master & worker)
