@@ -60,6 +60,9 @@ sudo yum install -y docker-ce docker-ce-cli containerd.io
 # Download & Install - Docker | Kubelet | Kubeadm | Kubectl
 # Note: Execute on all nodes (master & worker)
 
+# Start and enable docker and kubectl
+sudo systemctl enable docker && systemctl start docker
+
 # Kubernetes Repository
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -70,13 +73,12 @@ gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
 EOFF
 
-# Installing Kubelet | Kubeadm | Kubectl
-sudo yum update -y
-sudo yum install -y kubeadm kubelet kubectl --disableexcludes=kubernetes
-
-# Start and enable docker and kubectl
-sudo systemctl enable docker && systemctl start docker
-sudo systemctl enable kubelet && systemctl start kubelet
+# Install Kubernetes
+sudo dnf install -y yum-utils
+sudo dnf update kubectl
+sudo dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo systemctl enable --now kubelet
+systemctl start kubelet
 
 # For CentOS and RHEL
 sudo cat <<EOF >  /etc/sysctl.d/k8s.conf
