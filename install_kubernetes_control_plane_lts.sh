@@ -93,5 +93,3 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # Install Flannel networking
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
-# Allow scheduling on the master node
-kubectl taint nodes --all node-role.kubernetes.io/master-
