@@ -51,7 +51,7 @@ rm /etc/containerd/config.toml
 systemctl restart containerd
 
 # Kubernetes Repository
-sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/
