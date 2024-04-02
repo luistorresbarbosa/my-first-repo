@@ -85,10 +85,4 @@ sudo echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 sudo echo '1' > /proc/sys/net/ipv4/ip_forward
 sudo sysctl -p
 
-# Setup kubeconfig
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-# Install Flannel networking
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+# Execute control plane Join Command 
