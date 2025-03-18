@@ -16,11 +16,11 @@ spec:
     spec: 
       containers:
         - name: budget-portal-frontend
-          image: kwalit/budget-portal-frontend:v24.3.0-release
+          image: kwalit/budget-portal-frontend:v25.1.4-release
           imagePullPolicy: Always
           env:
           - name: API_HOST
-            value: "http://172.16.100.72:3003"
+            value: "http://172.16.100.72:30804"
           - name: API_VERSION
             value: "v1"
           - name: TENANT_HOST
