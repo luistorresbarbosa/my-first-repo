@@ -36,7 +36,7 @@ spec:
             - name: "KAFKA_CLUSTER_PORT"
               value: "9092"
             - name: "FRONTEND_URL"
-              value: "http://172.16.100.72:31573"
+              value: "http://172.16.100.72:31181"
             - name: "ENVIRONMENT"
               value: release
       imagePullSecrets:
