@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: Always
           env:
           - name: API_HOST
-            value: "http://172.16.100.72:30804"
+            value: "http://172.16.100.72:30240"
           - name: API_VERSION
             value: "v1"
           - name: TENANT_HOST
