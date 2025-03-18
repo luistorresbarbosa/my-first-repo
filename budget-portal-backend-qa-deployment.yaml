@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: budget-portal-backend-qa
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: budget-portal-backend-qa
+      tier: budget-portal-backend-qa
+  template:
+    metadata:
+      labels:
+        app: budget-portal-backend-qa
+        tier: budget-portal-backend-qa
+    spec:
+      containers:
+        - name: budget-portal-backend
+          image: kwalit/budget-portal-backend:v25.1.2-release
+          imagePullPolicy: Always
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "Enapor.20%2324"
+            - name: POSTGRES_HOST
+              value: "172.16.100.71"
+            - name: POSTGRES_DB
+              value: "budget-portal"
+            - name: POSTGRES_SCHEMA
+              value: "public"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: "KAFKA_CLUSTER_IP"
+              value: hq.kwalit.com
+            - name: "KAFKA_CLUSTER_PORT"
+              value: "9092"
+            - name: "FRONTEND_URL"
+              value: "http://172.16.100.72:31181"
+            - name: "ENVIRONMENT"
+              value: qa
+      imagePullSecrets:
+        - name: docker-registry-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: budget-portal-backend-qa
+spec:
+  selector:
+    app: budget-portal-backend-qa
+  ports:
+    - protocol: "TCP"
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: budget-portal-backend-qa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: budget-portal-backend-qa
+  minReplicas: 1
+  maxReplicas: 1
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
