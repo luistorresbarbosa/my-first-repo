@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: budget-portal-backend-release
+  name: budget-portal-backend-$ENVIRONMENT
 spec:
-  replicas: 3
+  replicas: $REPLICAS
   selector:
     matchLabels:
-      app: budget-portal-backend-release
-      tier: budget-portal-backend-release
+      app: budget-portal-backend-$ENVIRONMENT
+      tier: budget-portal-backend-$ENVIRONMENT
   template:
     metadata:
       labels:
-        app: budget-portal-backend-release
-        tier: budget-portal-backend-release
+        app: budget-portal-backend-$ENVIRONMENT
+        tier: budget-portal-backend-$ENVIRONMENT
     spec:
       containers:
         - name: budget-portal-backend
-          image: kwalit/budget-portal-backend:v25.1.2-release
+          image: kwalit/budget-portal-backend:$TAG
           imagePullPolicy: Always
           env:
             - name: POSTGRES_USER
@@ -38,17 +38,17 @@ spec:
             - name: "FRONTEND_URL"
               value: "http://172.16.100.72:31181"
             - name: "ENVIRONMENT"
-              value: release
+              value: $ENVIRONMENT
       imagePullSecrets:
         - name: docker-registry-key
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: budget-portal-backend-release
+  name: budget-portal-backend-$ENVIRONMENT
 spec:
   selector:
-    app: budget-portal-backend-release
+    app: budget-portal-backend-$ENVIRONMENT
   ports:
     - protocol: "TCP"
       port: 3000
@@ -58,13 +58,13 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: budget-portal-backend-release
+  name: budget-portal-backend-$ENVIRONMENT
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: budget-portal-backend-release
-  minReplicas: 3
+    name: budget-portal-backend-$ENVIRONMENT
+  minReplicas: $REPLICAS
   maxReplicas: 5
   metrics:
     - type: Resource
