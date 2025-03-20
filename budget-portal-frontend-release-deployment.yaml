@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: budget-portal-frontend-release
+  name: budget-portal-frontend-$ENVIRONMENT
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: budget-portal-frontend-release
-      tier: budget-portal-frontend-release
+      app: budget-portal-frontend-$ENVIRONMENT
+      tier: budget-portal-frontend-$ENVIRONMENT
   template:
     metadata: 
       labels:
-        app: budget-portal-frontend-release
-        tier: budget-portal-frontend-release
+        app: budget-portal-frontend-$ENVIRONMENT
+        tier: budget-portal-frontend-$ENVIRONMENT
     spec: 
       containers:
         - name: budget-portal-frontend
-          image: kwalit/budget-portal-frontend:v25.1.4-release
+          image: kwalit/budget-portal-frontend:$TAG
           imagePullPolicy: Always
           env:
           - name: API_HOST
@@ -31,10 +31,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: budget-portal-frontend-release
+    name: budget-portal-frontend-$ENVIRONMENT
 spec:
     selector:
-        app: budget-portal-frontend-release
+        app: budget-portal-frontend-$ENVIRONMENT
     ports:
         - protocol: "TCP"
           port: 80
@@ -44,12 +44,12 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: budget-portal-frontend-release
+  name: budget-portal-frontend-$ENVIRONMENT
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: budget-portal-frontend-release
+    name: budget-portal-frontend-$ENVIRONMENT
   minReplicas: 1
   maxReplicas: 2
   metrics:
