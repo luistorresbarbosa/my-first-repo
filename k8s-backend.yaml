@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-socketio
+  namespace: default
+spec:
+  selector:
+    app: backend-socketio
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-socketio
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-socketio
+  template:
+    metadata:
+      labels:
+        app: backend-socketio
+    spec:
+      imagePullSecrets:
+        - name: docker-registry-key
+      containers:
+        - name: backend-socketio
+          image: docker.io/kwalit/websocket-redis-test-be:v1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            - name: WS_PATH
+              value: "/ws"
+            - name: MSSQL_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: mssql-credentials
+                  key: server
+            - name: MSSQL_PORT
+              value: "1433"
+            - name: MSSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mssql-credentials
+                  key: database
+            - name: MSSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mssql-credentials
+                  key: user
+            - name: MSSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql-credentials
+                  key: password
+            - name: MSSQL_ENCRYPT
+              value: "true"
+            - name: MSSQL_TRUST_SERVER_CERTIFICATE
+              value: "true"
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PREFIX
+              value: "rt:"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-auth
+                  key: REDIS_PASSWORD
+                  optional: true
